@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { MusicPlayer } from './Components/MusicPlayer';
+import { SearchBar } from './Components/SearchBar';
+import { Sidebar } from './Components/SIdebar';
+import Discover from './pages/Discover';
+import { useAppSelector } from './redux/store/hooks';
 
-function App() {
+export function App() {
+  const { isActive } = useAppSelector((state) => state.player);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="relative flex">
+        <Sidebar/>
+        <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
+          <SearchBar />
+          <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll  hide-scrollbar flex xl:flex-row flex-col-reverse">
+            <div className=" flex-1 h-fit pb-60">
+
+              <Routes>
+                <Route path='/' element={<Discover />} />
+              </Routes>
+            </div>
+          </div>
+        </div>
+        {isActive && <MusicPlayer />}
+      </div>
+    </>
   );
 }
 
