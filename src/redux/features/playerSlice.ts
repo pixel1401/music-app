@@ -19,7 +19,7 @@ const initialState: IPlayerState = {
 
 
 
-interface PayloadSetActiveSong {
+interface PayloadSetActiveSong  {
   allSongs: Track[],
   song: Track 
 } 

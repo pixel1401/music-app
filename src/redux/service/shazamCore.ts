@@ -27,11 +27,11 @@ const url = 'https://shazam.p.rapidapi.com';
 
 export const shazamCoreApi = createApi({
     reducerPath: 'shazamApi',
-    extractRehydrationInfo(action, { reducerPath }) {
-        if (action.type === REHYDRATE) {
-            return action.payload[reducerPath]
-        }
-    },
+    // extractRehydrationInfo(action, { reducerPath }) {
+    //     if (action.type === REHYDRATE) {
+    //         return action.payload[reducerPath]
+    //     }
+    // },
     baseQuery: fetchBaseQuery({ 
         baseUrl: url ,
         prepareHeaders : (headers)=> {
@@ -67,7 +67,7 @@ export const shazamCoreApi = createApi({
 
 export const {
     useGetTopChartsQuery ,
-    useLazyGetGenresAndCountryQuery  ,
+    useLazyGetGenresAndCountryQuery ,
     useGetGenresAndCountryQuery ,
     useLazyGetTopChartsQuery
 } = shazamCoreApi;

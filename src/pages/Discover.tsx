@@ -44,7 +44,7 @@ const Discover = () => {
 
     useEffect (()=> {
         initData();
-    }, [dataGenresAndCountry])
+    }, [dataGenresAndCountry ])
 
     
     useEffect(()=> {
@@ -55,7 +55,7 @@ const Discover = () => {
                 fetchGetSongs(fetchGenre );
             }
         }
-    }, [fetchGenre])
+    }, [fetchGenre , data])
 
 
     if (isFetching || isFetchingGenres || isLoading) {
