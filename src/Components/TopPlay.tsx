@@ -26,7 +26,7 @@ export const TopPlay: FC = () => {
 
     useEffect(() => {
         divTopRef.current?.scrollIntoView({ behavior: 'smooth' });
-    })
+    } , [])
 
 
     return (
@@ -71,12 +71,14 @@ export const TopPlay: FC = () => {
                                 <SwiperSlide
                                     key={song.key}
                                     style={{width:'25%' , height:'auto'}}
-                                    className=" shadow-lg rounded-full  animate-spin"
+                                    className=" shadow-lg rounded-full  spin-slow"
                                 >
                                     <Link to={`/artists/${song.artists?.[0].adamid}`}>
                                         <img src={song.images?.background ?? myPhoto} className="rounded-full w-full object-cover " style={{aspectRatio: '1/1'}}  alt="artisImg"   />
                                     </Link>
                                 </SwiperSlide>
+
+
                             )
                         })
                     }
@@ -98,7 +100,7 @@ interface TopChartCardProps {
     allSongs: Track[]
 }
 
-const TopChartCard: FC<TopChartCardProps> = ({ song, index, allSongs }) => {
+export const TopChartCard: FC<TopChartCardProps> = ({ song, index, allSongs }) => {
 
 
     const { isActive, isPlaying, currentSong } = useAppSelector(state => state.player);

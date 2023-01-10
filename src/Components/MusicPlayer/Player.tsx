@@ -50,9 +50,11 @@ export const Player: FC<PlayerProps> = ({ audioSrc, isPlaying, volume, onLoadedD
       ref={audioRef}
       src={audioSrc ?? musicMy}
       loop={isRepeat}
+      muted={true}
       onEnded={onEnded}
       onTimeUpdate={(e) => onTimeUpdate(Number(e.currentTarget.currentTime))}
       onLoadedData={(e) =>  onLoadedData(Number(e.currentTarget.duration))}
+      
     />
   );
 };

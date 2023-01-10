@@ -2,6 +2,7 @@ import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions
 import { BaseQueryFn, createApi, EndpointDefinitions, FetchArgs, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 import { REHYDRATE } from 'redux-persist';
 import { IGenreAndCountry } from '../../Models/IGenresAndCountry';
+import { ISongDetails } from '../../Models/ISongDetails';
 import { ITracks } from '../../Models/Tracks';
 
 
@@ -27,11 +28,7 @@ const url = 'https://shazam.p.rapidapi.com';
 
 export const shazamCoreApi = createApi({
     reducerPath: 'shazamApi',
-    // extractRehydrationInfo(action, { reducerPath }) {
-    //     if (action.type === REHYDRATE) {
-    //         return action.payload[reducerPath]
-    //     }
-    // },
+    
     baseQuery: fetchBaseQuery({ 
         baseUrl: url ,
         prepareHeaders : (headers)=> {
@@ -59,6 +56,17 @@ export const shazamCoreApi = createApi({
                 url: '/charts/list'
             }),
             keepUnusedDataFor: 99999999999,
+        }) ,
+
+        getSongDetails : builder.query<ISongDetails , string>({
+            query : (songid : string) => ({
+                url : '/songs/get-details' ,
+                params : {
+                    locale: 'en-US',
+                    key : songid
+                }
+            }),
+            keepUnusedDataFor: 99999999999,
         })
     }),
 })
@@ -67,9 +75,13 @@ export const shazamCoreApi = createApi({
 
 export const {
     useGetTopChartsQuery ,
-    useLazyGetGenresAndCountryQuery ,
+    useLazyGetTopChartsQuery ,
+    
     useGetGenresAndCountryQuery ,
-    useLazyGetTopChartsQuery
+    useLazyGetGenresAndCountryQuery ,
+
+    useGetSongDetailsQuery,
+    useLazyGetSongDetailsQuery
 } = shazamCoreApi;
 
 

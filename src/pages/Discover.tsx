@@ -71,11 +71,12 @@ const Discover = () => {
                     setFetchGenre(e.currentTarget.value);
                     setSelectedGenre( e.currentTarget.options[e.currentTarget.selectedIndex].text );
                 }}
+                defaultValue={fetchGenre ?? ''}
                     className=" bg-black text-gray-300 p-3 text-sm rounded-lg outline-none sm:mt-0 mt-5"
                 >
                     {genres.map(item=> {
                         return (
-                            <option selected={item.name === selectedGenre}   key={item.id}  value={item.listid}>{item.name}</option>
+                            <option    key={item.id}  value={item.listid}>{item.name}</option>
                         )
                     })}
                 </select>

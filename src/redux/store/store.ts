@@ -21,6 +21,7 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['player']
 };
 
 

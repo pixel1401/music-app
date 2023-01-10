@@ -25,6 +25,16 @@ export const SongCard: React.FC<SongCardProps> = ({ dataSong, allSongs }) => {
     const bgImg = dataSong.images?.background ?? myPhoto;
     const mp4Music = dataSong.hub?.actions?.[1].uri;
 
+    const songKey = dataSong.key;
+
+
+
+
+
+    
+    
+
+
 
 
     return (
@@ -38,7 +48,7 @@ export const SongCard: React.FC<SongCardProps> = ({ dataSong, allSongs }) => {
                 </div>
                 <div className=" mt-4 flex flex-col">
                     <p className=' text-lg font-semibold text-white truncate'>
-                        <Link to={`/songs/`}>{songName}</Link>
+                        <Link to={`/songs/${songKey}`}>{songName}</Link>
                     </p>
                     <p className=' text-sm truncate text-gray-300 mt-1'>
                         <Link to={`/`}>{author}</Link>
