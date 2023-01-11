@@ -4,18 +4,18 @@ export interface ITracks {
 }
 
 export interface Track {
-    layout: string;
-    type: string;
+    layout?: string;
+    type?: string;
     key: string;
     title: string;
     subtitle: string;
-    share: Share;
+    share?: Share;
     images?: Images;
     hub: Hub;
     artists?: Artist[];
-    url: string;
-    highlightsurls: Highlightsurls;
-    properties: Properties;
+    url?: string;
+    highlightsurls?: Highlightsurls;
+    properties?: Properties;
 }
 
 interface Highlightsurls {
@@ -33,9 +33,9 @@ interface Hub {
     type: string;
     image: string;
     actions?: Action[];
-    options: Option[];
-    explicit: boolean;
-    displayname: string;
+    options?: Option[];
+    explicit?: boolean;
+    displayname?: string;
 }
 
 interface Option {

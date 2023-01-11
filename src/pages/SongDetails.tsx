@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
+import { TopChartCard } from "../Components/TopPlay";
 import { youtube_parser } from "../Models/consts";
 import { ISongDetails } from "../Models/ISongDetails";
-import { useGetSongDetailsQuery, useLazyGetSongDetailsQuery } from "../redux/service/shazamCore";
+import { useGetSongDetailsQuery, useGetSongsArtistQuery, useGetTopChartsQuery, useLazyGetSongDetailsQuery } from "../redux/service/shazamCore";
 
 
 
@@ -12,7 +13,18 @@ export const SongDetails = () => {
         skip: songid === undefined
     });
 
+    const {data : songsArtist , isLoading : isLoadSongsArtist } = useGetSongsArtistQuery(data?.artists?.[0].adamid ?? '', {
+        skip: data?.artists?.[0].adamid === undefined
+    })
+
+
+
+    console.log(songsArtist);
+    
+
     const [youtubeId , setYouTubeId] = useState('');
+
+
 
 
 
@@ -20,7 +32,7 @@ export const SongDetails = () => {
         const actions = data?.sections ?? [];
         for(let a of actions) {
             if(a.type === 'VIDEO') {
-                setYouTubeId( youtube_parser (a.youtubeurl?.actions[0].uri ?? ''));
+                setYouTubeId( youtube_parser(a.youtubeurl?.actions[0].uri ?? ''));
             }
         }
     }
@@ -66,7 +78,7 @@ export const SongDetails = () => {
                 </div>
 
                 <div className="w-full">
-                    <iframe className='video w-full aspect-video'
+                    <iframe className='video w-full aspect-video'   
                         title='Youtube player'
                         sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
                         src={`https://youtube.com/embed/${youtubeId}?autoplay=0`}>
@@ -77,6 +89,13 @@ export const SongDetails = () => {
 
                 <div className="mt-5">
                     <h2 className=" font-bold text-3xl mb-2">Related Songs</h2>
+                        {
+                            songsArtist?.map((song , i) => {
+                                return (
+                                    <TopChartCard song={song} allSongs={songsArtist} index={i}/>
+                                )
+                            })
+                        }
                 </div>
             </div>
         </>
