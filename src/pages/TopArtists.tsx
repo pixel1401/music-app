@@ -25,7 +25,7 @@ const TopArtists = ()=> {
                 <div className="flex flex-wrap sm:justify-start justify-center gap-8">
                     {data?.tracks?.map(item => {
                         return (
-                            <ArtistCard key={item.key} data={item}  />
+                            <ArtistCard key={item.key} nameArtist={item.subtitle} id={item.key ?? '' } img={item.images?.background}  />
                         )
                     })}
                 </div>

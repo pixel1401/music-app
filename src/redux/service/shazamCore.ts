@@ -3,6 +3,7 @@ import { BaseQueryFn, createApi, EndpointDefinitions, FetchArgs, fetchBaseQuery,
 import { REHYDRATE } from 'redux-persist';
 import { IArtist } from '../../Models/IArtist';
 import { IGenreAndCountry } from '../../Models/IGenresAndCountry';
+import { ISearch } from '../../Models/ISearch';
 import { ISongArtist } from '../../Models/ISongArtist';
 import { ISongDetails } from '../../Models/ISongDetails';
 import { ITracks, Track } from '../../Models/Tracks';
@@ -130,7 +131,23 @@ export const shazamCoreApi = createApi({
                 }
                 return res;
             },
+        }) ,
+
+
+
+        getSearchSongs: builder.query<ISearch , string | undefined> ({
+            query : (term : string)=> ({
+                url: '/search',
+                params : { 
+                    term: term, 
+                    locale: '', 
+                    offset: '0', 
+                    limit: '5' 
+                }
+            })
         })
+
+
     }),
 })
 
@@ -150,7 +167,7 @@ export const {
 
     useGetSongsArtistQuery,
 
-    
+    useGetSearchSongsQuery
 
 
 } = shazamCoreApi;

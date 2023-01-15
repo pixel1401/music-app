@@ -64,7 +64,7 @@ export const TopPlay: FC = () => {
                     <div className="flex flex-row  justify-between items-center">
                         <h2 className=" text-white font-bold text-2xl">Top Charts</h2>
                         <Link to={'/top-charts'}>
-                            <p className=" text-gray-300 text-base cursor-pointer">See more</p>
+                            <p className=" text-gray-300 text-base cursor-pointer hover:text-white">See more</p>
                         </Link>
                     </div>
                     <div className="mt-4 flex-col gap-1 flex">
@@ -80,8 +80,8 @@ export const TopPlay: FC = () => {
                 <div className=" w-full flex flex-col mt-8">
                     <div className="flex flex-row  justify-between items-center">
                         <h2 className=" text-white font-bold text-2xl">Top Artist</h2>
-                        <Link to={'/top-artist'}>
-                            <p className=" text-gray-300 text-base cursor-pointer">See more</p>
+                        <Link to={'/top-artists'}>
+                            <p className=" text-gray-300 text-base cursor-pointer hover:text-white">See more</p>
                         </Link>
                     </div>
                     <Swiper
@@ -99,7 +99,7 @@ export const TopPlay: FC = () => {
                                     <SwiperSlide
                                         key={song.key}
                                         style={{ width: '25%', height: 'auto' }}
-                                        className=" shadow-lg rounded-full  spin-slow"
+                                        className=" shadow-lg rounded-full  spin-slow animate-slideright"
                                     >
                                         <Link to={`/artist/${song.artists?.[0].adamid}`}>
                                             <img src={song.images?.background ?? myPhoto} onClick={() => handlePushArtist(song)} className="rounded-full w-full object-cover " style={{ aspectRatio: '1/1' }} alt="artisImg" />
@@ -161,7 +161,7 @@ export const TopChartCard: FC<TopChartCardProps> = ({ song, index, allSongs, isD
 
 
     return (
-        <div className=" w-full flex flex-row items-center hover:bg-[#4c426e] py-2 sm:p-4  rounded-lg cursor-pointer mb-2">
+        <div className=" w-full flex flex-row items-center hover:bg-[#4c426e] py-2 sm:p-4 animate-slideup rounded-lg cursor-pointer mb-2">
             <div className=" font-bold text-base text-white mr-3">{index}</div>
             <img src={song.images?.coverart ?? myPhoto} className='mr-5 rounded-lg sm:w-20 sm:h-20 w-14  h-14  object-cover ' alt="TopChard" />
             <div className="flex-1 flex flex-col items-start text-white mr-1  ">

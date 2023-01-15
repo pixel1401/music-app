@@ -8,20 +8,22 @@ import { useDispatch } from "react-redux";
 
 
 interface ArtistCardProps {
-    data : Track
+    nameArtist : string
+    id : string
+    img? : string
 }
 
 
 
-const ArtistCard: FC<ArtistCardProps> = ({data})=> {
+const ArtistCard: FC<ArtistCardProps> = ({ nameArtist, img, id })=> {
 
     const dispatch = useDispatch();
 
 
     const artistDetails: IArtist = {
-        key: data.artists?.[0].adamid ?? '',
-        name: data.subtitle ?? '',
-        img: data.images?.background ?? myPhoto,
+        key : id,
+        name: nameArtist,
+        img: img ?? myPhoto,
         genre: ''
     };
 
@@ -36,11 +38,11 @@ const ArtistCard: FC<ArtistCardProps> = ({data})=> {
     return (
         <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg">
             <div className="relative w-full h-56 group">
-                <img src={data.images?.background ?? myPhoto} className=' block h-[100%] w-[100%] object-cover' alt="song_card" />
+                <img src={img ?? myPhoto} className=' block h-[100%] w-[100%] object-cover' alt="song_card" />
             </div>
             <div className=" mt-4 flex flex-col">
                 <p className=' text-lg font-semibold text-gray-300 hover:text-white truncate'>
-                    <Link to={`/artist/${data.artists?.[0].adamid}`} onClick={()=> handlePushArtist()} >{data.subtitle}</Link>
+                    <Link to={`/artist/${id}`} onClick={()=> handlePushArtist()} >{nameArtist}</Link>
                 </p>
             </div>
         </div>

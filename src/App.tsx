@@ -7,6 +7,7 @@ import { TopPlay } from './Components/TopPlay';
 import AroundYou from './pages/AroundYou';
 import ArtistDetails from './pages/ArtistDetails';
 import Discover from './pages/Discover';
+import SearchPage from './pages/SearchPage';
 import { SongDetails } from './pages/SongDetails';
 import TopArtists from './pages/TopArtists';
 import TopCharts from './pages/TopCharts';
@@ -15,25 +16,16 @@ import { useAppSelector } from './redux/store/hooks';
 export function App() {
 
 
-  useEffect(() => {
-    window.addEventListener("beforeunload", alertUser);
-    return () => {
-      window.removeEventListener("beforeunload", alertUser);
-    };
-  }, []);
-  const alertUser = (e : any) => {
-    e.preventDefault();
-    e.returnValue = "";
-  };
-
-
-
-
-
-
-
-
-
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", alertUser);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", alertUser);
+  //   };
+  // }, []);
+  // const alertUser = (e : any) => {
+  //   e.preventDefault();
+  //   e.returnValue = "";
+  // };
 
 
   const { isActive } = useAppSelector((state) => state.player);
@@ -52,6 +44,7 @@ export function App() {
                 <Route path='/around-you' element={<AroundYou/>} />
                 <Route path='/top-charts' element={<TopCharts/>} />
                 <Route path='/top-artists' element={<TopArtists/>} />
+                <Route path='/search/:value' element={<SearchPage/>} />
               </Routes>
             </div>
             <div className="xl:overflow-x-scroll xl:pb-24 xl:h-[100%] xl:sticky relative top-0 h-fit">

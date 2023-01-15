@@ -52,7 +52,7 @@ export const SongCard: React.FC<SongCardProps> = ({ dataSong, allSongs }) => {
         <>
             <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg">
                 <div className="relative w-full h-56 group">
-                    <div className={`flex absolute inset-0 justify-center items-center group-hover:flex ${currentSong?.title === dataSong.title ? 'bg-black bg-opacity-50' : 'hidden'} `}>
+                    <div className={`flex absolute inset-0 justify-center items-center group-hover:flex ${currentSong?.key === dataSong.key ? 'bg-black bg-opacity-50' : 'hidden'} `}>
                         <PlayPause song={dataSong} allSongs={allSongs} />
                     </div>
                     <img src={cardImg} className=' block h-[100%] w-[100%] object-cover' alt="song_card" />
