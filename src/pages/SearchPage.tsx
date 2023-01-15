@@ -10,12 +10,11 @@ import { useGetSearchSongsQuery } from "../redux/service/shazamCore";
 
 
 
-
 const SearchPage  = ()=> {
 
     const {value} = useParams();
 
-    const {data , isLoading} = useGetSearchSongsQuery(value , {
+    const {data , isLoading , isError} = useGetSearchSongsQuery(value , {
         skip : value == undefined
     })
 
@@ -48,6 +47,10 @@ const SearchPage  = ()=> {
     }
 
 
+    if (isError) {
+        return <h2 className="text-red-600">Error</h2>
+    }
+
 
     return (
         <>
@@ -59,7 +62,7 @@ const SearchPage  = ()=> {
                 <div className="flex flex-wrap sm:justify-start justify-center  gap-8">
                     {songs?.map(item => {
                         return (
-                            <SongCard key={item.key} allSongs={songs } dataSong={item} />
+                            <SongCard key={item.key} allSongs={songs} dataSong={item} />
                         )
                     })}
                     {
