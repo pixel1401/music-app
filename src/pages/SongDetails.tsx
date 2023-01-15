@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
+import Loader from "../Components/Loader";
 import { TopChartCard } from "../Components/TopPlay";
 import { youtube_parser } from "../Models/consts";
 import { ISongDetails } from "../Models/ISongDetails";
-import { useGetSongDetailsQuery, useGetSongsArtistQuery, useGetTopChartsQuery, useLazyGetSongDetailsQuery } from "../redux/service/shazamCore";
+import { useGetRecommendationsSongsQuery, useGetSongDetailsQuery, useGetSongsArtistQuery, useGetTopChartsQuery, useLazyGetSongDetailsQuery } from "../redux/service/shazamCore";
 
 
 
@@ -13,8 +14,8 @@ export const SongDetails = () => {
         skip: songid === undefined
     });
 
-    const {data : songsArtist , isLoading : isLoadSongsArtist } = useGetSongsArtistQuery(data?.artists?.[0].adamid ?? '', {
-        skip: data?.artists?.[0].adamid === undefined
+    const { data: songsArtist, isLoading: isLoadSongsArtist } = useGetRecommendationsSongsQuery(songid ?? '', {
+        skip: songid === undefined
     })
 
 
@@ -45,7 +46,7 @@ export const SongDetails = () => {
 
 
     if (isLoading || data === undefined) {
-        return <h2 className=" font-bold text-white">Loading...</h2>
+        return <Loader />
     }
 
 
@@ -88,11 +89,11 @@ export const SongDetails = () => {
 
 
                 <div className="mt-5">
-                    <h2 className=" font-bold text-3xl mb-2">Related Songs</h2>
+                    <h2 className=" font-bold text-3xl mb-2 text-white">Related Songs</h2>
                         {
                             songsArtist?.map((song , i) => {
                                 return (
-                                    <TopChartCard song={song} allSongs={songsArtist} index={i}/>
+                                    <TopChartCard key={song.key} song={song} allSongs={songsArtist} index={i+1} />
                                 )
                             })
                         }
@@ -101,3 +102,4 @@ export const SongDetails = () => {
         </>
     )
 } 
+

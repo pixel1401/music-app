@@ -13,6 +13,8 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 
 import myPhoto from '../assets/myPhoto.jpg';
+import { IArtist, pushArtist } from "../redux/features/globalSlice";
+import { useDispatch } from "react-redux";
 
 
 export const TopPlay: FC = () => {
@@ -26,7 +28,33 @@ export const TopPlay: FC = () => {
 
     useEffect(() => {
         divTopRef.current?.scrollIntoView({ behavior: 'smooth' });
-    } , [])
+    }, [])
+
+
+
+
+
+    const dispatch = useDispatch();
+
+
+    
+
+
+    const handlePushArtist = (data : Track) => {
+
+        const artistDetails: IArtist = {
+            key: data.artists?.[0].adamid ?? '',
+            name: data.subtitle ?? '',
+            img: data.images?.background ?? myPhoto,
+            genre: ''
+        };
+
+        dispatch(pushArtist(artistDetails));
+    }
+
+
+
+
 
 
     return (
@@ -64,25 +92,25 @@ export const TopPlay: FC = () => {
                         centeredSlidesBounds
                         modules={[FreeMode]}
                         className='mt-4'
-                    >   
-                    {
-                        topPlays?.map((song , index) => {
-                            return (
-                                <SwiperSlide
-                                    key={song.key}
-                                    style={{width:'25%' , height:'auto'}}
-                                    className=" shadow-lg rounded-full  spin-slow"
-                                >
-                                    <Link to={`/artists/${song.artists?.[0].adamid}`}>
-                                        <img src={song.images?.background ?? myPhoto} className="rounded-full w-full object-cover " style={{aspectRatio: '1/1'}}  alt="artisImg"   />
-                                    </Link>
-                                </SwiperSlide>
+                    >
+                        {
+                            topPlays?.map((song, index) => {
+                                return (
+                                    <SwiperSlide
+                                        key={song.key}
+                                        style={{ width: '25%', height: 'auto' }}
+                                        className=" shadow-lg rounded-full  spin-slow"
+                                    >
+                                        <Link to={`/artist/${song.artists?.[0].adamid}`}>
+                                            <img src={song.images?.background ?? myPhoto} onClick={() => handlePushArtist(song)} className="rounded-full w-full object-cover " style={{ aspectRatio: '1/1' }} alt="artisImg" />
+                                        </Link>
+                                    </SwiperSlide>
 
 
-                            )
-                        })
-                    }
-                        
+                                )
+                            })
+                        }
+
                     </Swiper>
                 </div>
             </div>
@@ -97,10 +125,11 @@ export const TopPlay: FC = () => {
 interface TopChartCardProps {
     song: Track,
     index: number,
-    allSongs: Track[]
+    allSongs: Track[],
+    isDisabledLink?: boolean
 }
 
-export const TopChartCard: FC<TopChartCardProps> = ({ song, index, allSongs }) => {
+export const TopChartCard: FC<TopChartCardProps> = ({ song, index, allSongs, isDisabledLink = false }) => {
 
 
     const { isActive, isPlaying, currentSong } = useAppSelector(state => state.player);
@@ -116,7 +145,17 @@ export const TopChartCard: FC<TopChartCardProps> = ({ song, index, allSongs }) =
         dispatch(playPause(false))
     }
 
+    const artistDetails: IArtist = {
+        key: song.artists?.[0].adamid ?? '',
+        name: song.subtitle ?? '',
+        img: song.images?.background ?? myPhoto,
+        genre: ''
+    };
 
+
+    const handlePushArtist = () => {
+        dispatch(pushArtist(artistDetails));
+    }
 
 
 
@@ -126,10 +165,19 @@ export const TopChartCard: FC<TopChartCardProps> = ({ song, index, allSongs }) =
             <div className=" font-bold text-base text-white mr-3">{index}</div>
             <img src={song.images?.coverart ?? myPhoto} className='mr-5 rounded-lg sm:w-20 sm:h-20 w-14  h-14  object-cover ' alt="TopChard" />
             <div className="flex-1 flex flex-col items-start text-white mr-1  ">
-                <Link to={`/songs/${song.key}`}>
+                <Link to={`/songs/${song.key}`} onClick={(e) => {
+                    if (song.key == undefined || isDisabledLink) {
+                        e.preventDefault();
+                    }
+                }}>
                     <h3 className=" text-xl font-bold truncate">{song.title}</h3>
                 </Link>
-                <Link to={`/artist/${song.artists?.[0].adamid}`}>
+                <Link to={`/artist/${song.artists?.[0].adamid}`} onClick={(e) => {
+                    if (song.artists?.[0].adamid == undefined || isDisabledLink) {
+                        return e.preventDefault();
+                    }
+                    handlePushArtist();
+                }} >
                     <h5 className="text-base  text-gray-300 mt-1">{song.subtitle}</h5>
                 </Link>
             </div>

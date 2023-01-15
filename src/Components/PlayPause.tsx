@@ -30,8 +30,8 @@ export const PlayPause: FC<PlayPauseProps> = ({ song, allSongs }) => {
     <>
       {
         isActive && isPlaying === true  && currentSong?.title === song.title 
-          ? <FaPauseCircle onClick={() => handlePause()} size={35} className=" text-gray-300"/>
-          : <FaPlayCircle size={35} className="text-gray-300" onClick={() => handlePlay()}/> 
+          ? <FaPauseCircle onClick={() => handlePause()} size={35} className=" text-gray-300 cursor-pointer"/>
+          : <FaPlayCircle size={35} className="text-gray-300 cursor-pointer" onClick={() => handlePlay()}/> 
       }
     </>
   )

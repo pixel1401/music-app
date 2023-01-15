@@ -1,6 +1,7 @@
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
 import { BaseQueryFn, createApi, EndpointDefinitions, FetchArgs, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 import { REHYDRATE } from 'redux-persist';
+import { IArtist } from '../../Models/IArtist';
 import { IGenreAndCountry } from '../../Models/IGenresAndCountry';
 import { ISongArtist } from '../../Models/ISongArtist';
 import { ISongDetails } from '../../Models/ISongDetails';
@@ -69,6 +70,24 @@ export const shazamCoreApi = createApi({
             }),
             keepUnusedDataFor: 99999999999,
         }),
+
+        getRecommendationsSongs : builder.query<Track[] , string>({
+            query : (keySong : string)=> ({
+                url: '/songs/list-recommendations' ,
+                    params: {
+                        key: keySong, 
+                        locale: ''
+                },
+            }),
+            transformResponse : ({tracks} : ITracks) => {
+                return tracks;
+            }
+        }),
+
+
+        
+
+
         getSongsArtist: builder.query<Track[], string>({
             query: (adamid: string) => ({
                 url: '/artists/get-top-songs',
@@ -127,7 +146,13 @@ export const {
     useGetSongDetailsQuery,
     useLazyGetSongDetailsQuery,
 
-    useGetSongsArtistQuery
+    useGetRecommendationsSongsQuery,
+
+    useGetSongsArtistQuery,
+
+    
+
+
 } = shazamCoreApi;
 
 

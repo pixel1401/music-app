@@ -1,3 +1,4 @@
+import { geoCore } from './../service/geoCore';
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import {
@@ -15,6 +16,7 @@ import { shazamCoreApi } from './../service/shazamCore';
 import playerReducer from '../features/playerSlice';
 import logger from 'redux-logger';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import globalSlice from '../features/globalSlice';
 
 
 
@@ -28,6 +30,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     [shazamCoreApi.reducerPath]: shazamCoreApi.reducer,
     player: playerReducer,
+    [geoCore.reducerPath]: geoCore.reducer,
+    globalSlice : globalSlice   
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -52,6 +56,7 @@ const middlewareHandler = (getDefaultMiddleware: any) => {
             },
         }),
         shazamCoreApi.middleware,
+        geoCore.middleware,
         rtkQueryErrorLogger,
     ];
     if (process.env.NODE_ENV === 'development') {

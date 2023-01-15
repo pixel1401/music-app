@@ -4,8 +4,12 @@ import { MusicPlayer } from './Components/MusicPlayer';
 import { SearchBar } from './Components/SearchBar';
 import { Sidebar } from './Components/SIdebar';
 import { TopPlay } from './Components/TopPlay';
+import AroundYou from './pages/AroundYou';
+import ArtistDetails from './pages/ArtistDetails';
 import Discover from './pages/Discover';
 import { SongDetails } from './pages/SongDetails';
+import TopArtists from './pages/TopArtists';
+import TopCharts from './pages/TopCharts';
 import { useAppSelector } from './redux/store/hooks';
 
 export function App() {
@@ -30,6 +34,8 @@ export function App() {
 
 
 
+
+
   const { isActive } = useAppSelector((state) => state.player);
   return (
     <>
@@ -42,6 +48,10 @@ export function App() {
               <Routes>
                 <Route path='/' element={<Discover />} />
                 <Route path='/songs/:songid' element={<SongDetails />} />
+                <Route path='/artist/:artistId' element={<ArtistDetails />} />
+                <Route path='/around-you' element={<AroundYou/>} />
+                <Route path='/top-charts' element={<TopCharts/>} />
+                <Route path='/top-artists' element={<TopArtists/>} />
               </Routes>
             </div>
             <div className="xl:overflow-x-scroll xl:pb-24 xl:h-[100%] xl:sticky relative top-0 h-fit">

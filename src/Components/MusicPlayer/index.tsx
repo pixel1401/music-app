@@ -53,7 +53,7 @@ export const MusicPlayer : FC = ()=> {
     return (
         <div className=" absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
             <div className="relative sm:px-12 px-8 w-full flex items-center justify-between">
-                <SongCircle imageSrc={currentSong?.images?.coverart}  nameSong= {currentSong?.title ?? ''}  author={currentSong?.subtitle ?? ''} />
+                <SongCircle imageSrc={currentSong?.images?.coverart} isPlaying={isPlaying}  nameSong= {currentSong?.title ?? ''}  author={currentSong?.subtitle ?? ''} />
                 <div className="flex-1 flex flex-col items-center justify-center">
                     <Controls
                         isPlaying={isPlaying}
